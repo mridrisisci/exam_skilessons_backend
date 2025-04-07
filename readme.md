@@ -2,7 +2,7 @@
 ________
 ### Project overview
 ___
-This backend system is a REST API for managing XX problems, tasks, and math groups. It is built with Java 17 and uses Javalin as the web framework.
+This backend system is a REST API for managing skilessons and instructors. It is built with Java 17 and uses Javalin as the web framework.
 
 ### Tech Stack
 _____
@@ -31,25 +31,6 @@ ISSUER="choose_issuer_name"
 TOKEN_EXPIRE_TIME=1800000
 ```
 The DB_NAME, DB_USERNAME, DB_PASSWORD, ISSUER, and TOKEN_EXPIRE_TIME properties should be filled in with the appropriate values. The SECRET_KEY property should be a minimum of 32 characters long.
-
-### Project Structure
-____
-src/
-├── main/
-│   ├── java/app/
-│   │   ├── config/       # Application and Hibernate configuration
-│   │   ├── controllers/  # REST controllers handling HTTP requests
-│   │   ├── dao/          # Data Access Objects for database operations
-│   │   ├── dto/          # Data Transfer Objects for API requests/responses
-│   │   ├── entities/     # JPA/Hibernate entity classes
-│   │   ├── enums/        # Enumeration types
-│   │   ├── exceptions/   # Custom exception classes
-│   │   ├── routes/       # API route definitions
-│   │   └── utils/        # Utility classes
-│   └── resources/        # Configuration files and resources
-└── test/
-└── java/app/         # Test classes
-
 ### Theoretical Questions
 ___
 * (3.3.5): Why is PUT used for assigning an item to a student instead of POST?
@@ -59,7 +40,23 @@ Man bruger 'PUT' når man ønsker at opdatere en specifik resource - især når 
 ### Endpoints 
 ___
 * In the 'resources' folder, there is a <b>demo.http</b> file where all general endpoints are called with their respective HTTP methods.
-* Additionally, there is also a <b>demoSecurity.http</b> file where all endpoints with protected access roles are called with their respective HTTP methods.
+
+#### * SkiLessons
+
+* GET /api/lessons
+* GET /api/lessons/{id}
+* POST /api/lessons
+* PUT /api/lessons/{id}
+* DELETE /api/lessons/{id}
+
+#### * Instructor
+
+* GET /api/instructors
+* GET /api/instructors/{id}
+* POST /api/instructors
+* PUT /api/instructors/{id}
+* DELETE /api/instructors/{id}
+* GET /api/instructors/{id}/lessons
 
 Note that you must have your <b>secret token key</b> defined in your config.properties to execute various endpoints.
 
@@ -80,6 +77,7 @@ The error messages  in JSON-format are structured as follows:
 <details>
 <summary>Error handling example</summary>
 ''' java
+
 @Override
     public void getAll(Context ctx)
     {
@@ -109,9 +107,9 @@ ___________
 Link for the external API: https://apiprovider.cphbusinessapps.dk/skilesson/
 
 Following routes have been implemented:
-* GET localhost:7070/api/courses/search/{level}
-* GET localhost:7070/api/courses/search/duration/{level}
-* GET localhost:7070/api/courses/search/instructor/{instructorId}
+* GET /api/courses/search/{level}
+* GET /api/courses/search/duration/{level}
+* GET /courses/search/instructor/{instructorId}
 
 #### Eksempel på json respons første ovennævnte rute: 
 
@@ -156,8 +154,10 @@ Following routes have been implemented:
 ]
 ```
 
-### Security
-___
+### Testing
+___________
+
+This project contains RestAssured tests for the API endpoints. The tests are located in the `src/test/java` directory and are organized by package. Each test class corresponds to a specific controller or functionality.
 
 ### Best Practices
 _____________
