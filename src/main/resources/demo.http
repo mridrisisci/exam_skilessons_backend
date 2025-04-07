@@ -54,10 +54,10 @@ GET localhost:7070/api/courses/search/Beginner
 ###
 GET localhost:7070/api/courses/search/duration/beginner
 
-
 // -------------- STREAMS ROUTES -  ---------------
 
-// search doctor by specialty
+// search courses by instructor id -
 ###
-GET localhost:7070/api/doctors/search/SURGERY
+GET localhost:7070/api/courses/search/instructor/1
+
 

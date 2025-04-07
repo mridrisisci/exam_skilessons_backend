@@ -2,12 +2,10 @@ package app.dao;
 
 import app.entities.Instructor;
 import app.entities.SkiLesson;
-import app.dto.SkiLessonDTO;
 import jakarta.persistence.EntityManagerFactory;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 public class InstructorDAO extends GenericDAO implements IInstructorDAO {
 
@@ -65,16 +63,5 @@ public class InstructorDAO extends GenericDAO implements IInstructorDAO {
         }
     }
 
-    public Set<SkiLessonDTO> getSkiLessonsByInstructor(int instructorId) {
-        Instructor instructor = getById(Instructor.class, (long) instructorId);
 
-        if (instructor != null) {
-            // Assuming a method that converts SkiLesson to SkiLessonDTO
-            return instructor.getSkiLessoons().stream()
-                .map(lesson -> new SkiLessonDTO(lesson)) // You'll need to adjust this part based on your SkiLessonDTO constructor
-                .collect(Collectors.toSet());
-        }
-
-        return Set.of(); // Return an empty set if instructor is not found
-    }
 }

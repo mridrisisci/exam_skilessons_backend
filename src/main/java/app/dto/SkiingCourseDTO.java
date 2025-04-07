@@ -18,15 +18,7 @@ public class SkiingCourseDTO
     private int durationMinutes;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
+    private Integer instructorId; // remember to exclude from DB
 
-    public SkiingCourseDTO(SkiingCourseDTO skiingCourseDTO)
-    {
-        this.title = skiingCourseDTO.getTitle();
-        this.description = skiingCourseDTO.getDescription();
-        this.level = skiingCourseDTO.getLevel();
-        this.durationMinutes = skiingCourseDTO.getDurationMinutes();
-        this.createdAt = skiingCourseDTO.getCreatedAt();
-        this.updatedAt = skiingCourseDTO.getUpdatedAt();
-    }
 
 }

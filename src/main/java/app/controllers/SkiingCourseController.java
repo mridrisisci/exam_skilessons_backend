@@ -49,6 +49,45 @@ public class SkiingCourseController implements IController
         this.dataAPIReader = dataAPIReader;
     }
 
+    public void getOverviewOFSkiingCourseByInstructor(Context ctx)
+    {
+        List<SkiingCourseDTO> skiingCourses;
+        List<SkiingCourseDTO> filteredSkiingCourses;
+
+        try
+        {
+            String json = dataAPIReader.getDataFromClient(BASE_URL);
+            JsonNode node = objectMapper.readValue(json, JsonNode.class);
+            skiingCourses = objectMapper.convertValue(node, new TypeReference<List<SkiingCourseDTO>>() {});
+
+            // get instructor id
+            String param = ctx.pathParam("instructorId");
+            Integer instructorId = Integer.parseInt(param);
+
+            // filter courses based on instructorId
+            filteredSkiingCourses = skiingCourses.stream()
+                .filter(course -> course.getInstructorId() != null && course.getInstructorId().equals(instructorId))
+                .collect(Collectors.toList());
+
+            List<String> newList = skiingCourses.stream()
+                .map(course -> course.getTitle())
+                .collect(Collectors.toList());
+
+            // convert to proper json response
+            Map<String, Object> response = new HashMap<>();
+            response.put("instructorId", instructorId);
+            response.put("Course title", newList);
+
+            ctx.json(response);
+
+        } catch (Exception e)
+        {
+            logger.error("Error getting overview of skiing courses by instructor", e);
+            ErrorMessage error = new ErrorMessage("Error getting overview of skiing courses by instructor");
+            ctx.status(404).json(error);
+        }
+    }
+
     public void searchSkiingCourseByLevel(Context ctx)
     {
         List<SkiingCourseDTO> skiingCourses;
@@ -57,9 +96,7 @@ public class SkiingCourseController implements IController
         {
             String json = dataAPIReader.getDataFromClient(BASE_URL);
             JsonNode node = objectMapper.readValue(json, JsonNode.class);
-            skiingCourses = objectMapper.convertValue(node, new TypeReference<List<SkiingCourseDTO>>()
-            {
-            });
+            skiingCourses = objectMapper.convertValue(node, new TypeReference<List<SkiingCourseDTO>>() {});
             String param = ctx.pathParam("level");
             filteredSkiingCourses = skiingCourses.stream()
                 .filter(course -> course.getLevel().equalsIgnoreCase(param))
@@ -93,6 +130,7 @@ public class SkiingCourseController implements IController
                 .mapToInt(SkiingCourseDTO::getDurationMinutes)
                 .sum();
 
+            // convert to a proper json response
             Map<String, Object> response = new HashMap<>();
             response.put("level", param);
             response.put("totalDuration", totalDuration);
