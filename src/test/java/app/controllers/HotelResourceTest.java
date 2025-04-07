@@ -2,9 +2,6 @@ package app.controllers;
 
 import app.config.ApplicationConfig;
 import app.config.HibernateConfig;
-import app.dto.HotelDTO;
-import app.entities.Hotel;
-import app.entities.Room;
 import app.routes.Routes;
 import io.restassured.RestAssured;
 import jakarta.persistence.EntityManager;

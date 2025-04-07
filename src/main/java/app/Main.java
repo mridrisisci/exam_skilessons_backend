@@ -2,7 +2,6 @@ package app;
 
 import app.config.ApplicationConfig;
 import app.config.HibernateConfig;
-import app.controllers.HotelController;
 import app.controllers.SecurityController;
 import app.routes.Routes;
 import jakarta.persistence.EntityManagerFactory;

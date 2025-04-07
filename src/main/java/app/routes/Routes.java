@@ -2,7 +2,6 @@ package app.routes;
 
 import app.config.HibernateConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import app.controllers.HotelController;
 import app.controllers.SecurityController;
 import app.enums.Roles;
 import io.javalin.apibuilder.EndpointGroup;
