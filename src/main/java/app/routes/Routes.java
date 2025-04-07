@@ -52,6 +52,7 @@ public class Routes
     {
         return () -> {
             get("/search/{level}", (ctx) -> skiingCourseController.searchSkiingCourseByLevel(ctx));
+            get("/search/duration", (ctx) -> skiingCourseController.getTotalDurationOfSkiingCourses(ctx));
         };
     }
 

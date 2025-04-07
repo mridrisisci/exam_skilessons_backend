@@ -48,11 +48,11 @@ DELETE localhost:7070/api/instructor/1
 
 // search skiing courses by level
 ###
-GET localhost:7070/api/courses/search/BEGINNER
+GET localhost:7070/api/courses/search/Beginner
 
-// get shop by category
+// get total duration of skiing lessons
 ###
-GET localhost:7070/api/shops/search/video
+GET localhost:7070/api/courses/search/duration
 
 
 // -------------- STREAMS ROUTES -  ---------------
@@ -61,6 +61,3 @@ GET localhost:7070/api/shops/search/video
 ###
 GET localhost:7070/api/doctors/search/SURGERY
 
-// get total number of doctors by specialty
-###
-GET localhost:7070/api/doctors/searchtotal/SURGERY
