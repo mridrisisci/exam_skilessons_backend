@@ -58,9 +58,6 @@ ___
 * DELETE /api/instructors/{id}
 * GET /api/instructors/{id}/lessons
 
-Note that you must have your <b>secret token key</b> defined in your config.properties to execute various endpoints.
-
-
 ### REST Error Handling
 ___
 The controller handles general error handling and returns a JSON with error messages. The controller also uses a 'try/catch' block to handle any errors that occur during request processing. If an error occurs, a JSON with error information and an appropriate HTTP status code is returned.
