@@ -1,7 +1,6 @@
 package app.utils;
 
 
-import app.config.HibernateConfig;
 import app.entities.Instructor;
 import app.entities.SkiLesson;
 import app.enums.LessonLevel;
