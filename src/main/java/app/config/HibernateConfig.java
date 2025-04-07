@@ -43,7 +43,7 @@ public class HibernateConfig
     private static void getAnnotationConfiguration(Configuration configuration) {
         configuration.addAnnotatedClass(Instructor.class);
         configuration.addAnnotatedClass(SkiLesson.class);
-        //configuration.addAnnotatedClass(UserAccount.class);
+        configuration.addAnnotatedClass(UserAccount.class);
     }
 
     private static EntityManagerFactory createEMF(boolean forTest) {
@@ -76,7 +76,7 @@ public class HibernateConfig
 
     private static Properties setBaseProperties(Properties props) {
         props.put("hibernate.connection.driver_class", "org.postgresql.Driver");
-        props.put("hibernate.hbm2ddl.auto", "create");  // set to "upappe" when in production
+        props.put("hibernate.hbm2ddl.auto", "update");  // set to "upappe" when in production
         props.put("hibernate.current_session_context_class", "thread");
         props.put("hibernate.show_sql", "false");
         props.put("hibernate.format_sql", "false");

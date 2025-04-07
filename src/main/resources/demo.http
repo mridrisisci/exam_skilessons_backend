@@ -4,12 +4,39 @@
 // populates db with dummy data
 POST localhost:7070/api/instructor/populate
 
-// -------------- Skiing Routes ROUTES - CRUDS ---------------
+// -------------- Skiing  ROUTES - CRUDS ---------------
 
 // add an exisiting instructor by id to existing course by id
 ###
 PUT localhost:7070/api/courses/1/instructor/2
 
+// get all courses
+###
+GET localhost:7070/api/courses/all
+
+// get course by id
+###
+GET localhost:7070/api/courses/1
+
+// create course
+###
+POST localhost:7070/api/courses
+Content-Type: "application/json"
+
+{
+  "name": "Skiing",
+  "level": "Beginner",
+  "duration": 2,
+  "instructorId": 1
+}
+
+// update course
+###
+PUT localhost:7070/api/courses/1
+
+// delete course
+###
+DELETE localhost:7070/api/courses/1
 
 
 // -------------- INSTRUCTOR ROUTES - CRUDS ---------------
