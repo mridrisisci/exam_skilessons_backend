@@ -4,6 +4,14 @@
 // populates db with dummy data
 POST localhost:7070/api/instructor/populate
 
+// -------------- Skiing Routes ROUTES - CRUDS ---------------
+
+// add an exisiting instructor by id to existing course by id
+###
+PUT localhost:7070/api/courses/1/instructors/2
+
+
+
 // -------------- INSTRUCTOR ROUTES - CRUDS ---------------
 
 // get all instructors

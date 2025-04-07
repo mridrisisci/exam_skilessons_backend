@@ -5,6 +5,7 @@ import app.dao.CrudDAO;
 import app.dao.InstructorDAO;
 import app.dto.ErrorMessage;
 import app.dto.InstructorDTO;
+import app.dto.SkiLessonDTO;
 import app.dto.SkiingCourseDTO;
 import app.entities.Instructor;
 import app.entities.SkiLesson;
@@ -58,7 +59,9 @@ public class SkiingCourseController implements IController
         {
             String json = dataAPIReader.getDataFromClient(BASE_URL);
             JsonNode node = objectMapper.readValue(json, JsonNode.class);
-            skiingCourses = objectMapper.convertValue(node, new TypeReference<List<SkiingCourseDTO>>() {});
+            skiingCourses = objectMapper.convertValue(node, new TypeReference<List<SkiingCourseDTO>>()
+            {
+            });
 
             // get instructor id
             String param = ctx.pathParam("instructorId");
@@ -96,7 +99,9 @@ public class SkiingCourseController implements IController
         {
             String json = dataAPIReader.getDataFromClient(BASE_URL);
             JsonNode node = objectMapper.readValue(json, JsonNode.class);
-            skiingCourses = objectMapper.convertValue(node, new TypeReference<List<SkiingCourseDTO>>() {});
+            skiingCourses = objectMapper.convertValue(node, new TypeReference<List<SkiingCourseDTO>>()
+            {
+            });
             String param = ctx.pathParam("level");
             filteredSkiingCourses = skiingCourses.stream()
                 .filter(course -> course.getLevel().equalsIgnoreCase(param))
@@ -118,7 +123,9 @@ public class SkiingCourseController implements IController
             String json = dataAPIReader.getDataFromClient(BASE_URL);
             JsonNode node = objectMapper.readValue(json, JsonNode.class);
             String param = ctx.pathParam("level");
-            skiingCourses = objectMapper.convertValue(node, new TypeReference<List<SkiingCourseDTO>>() {});
+            skiingCourses = objectMapper.convertValue(node, new TypeReference<List<SkiingCourseDTO>>()
+            {
+            });
 
             // filter courses based on level
             List<SkiingCourseDTO> filteredCourse = skiingCourses.stream()
@@ -150,7 +157,7 @@ public class SkiingCourseController implements IController
     {
         try
         {
-            ctx.json(dao.getAll(Instructor.class));
+            ctx.json(dao.getAll(SkiLesson.class));
         } catch (Exception ex)
         {
             logger.error("Error getting entities", ex);
@@ -167,7 +174,7 @@ public class SkiingCourseController implements IController
             long id = ctx.pathParamAsClass("id", Long.class)
                 .check(i -> i > 0, "id must be at least 0")
                 .getOrThrow((validation) -> new BadRequestResponse("Invalid id"));
-            InstructorDTO foundEntity = new InstructorDTO(dao.getById(Instructor.class, id));
+            SkiLessonDTO foundEntity = new SkiLessonDTO(dao.getById(SkiLesson.class, id));
             ctx.json(foundEntity);
 
         } catch (Exception ex)
@@ -183,15 +190,15 @@ public class SkiingCourseController implements IController
     {
         try
         {
-            InstructorDTO incomingInstructor = ctx.bodyAsClass(InstructorDTO.class);
-            Instructor entity = new Instructor(incomingInstructor);
-            Instructor createdEntity = dao.create(entity);
-            for (SkiLesson lesson : entity.getSkiLessoons())
+            SkiLessonDTO incomingInstructor = ctx.bodyAsClass(SkiLessonDTO.class);
+            SkiLesson entity = new SkiLesson(incomingInstructor);
+            SkiLesson createdEntity = dao.create(entity);
+            for (SkiLesson lesson : entity.getInstructor().getSkiLessoons())
             {
-                lesson.setInstructor(createdEntity);
+                lesson.setInstructor(createdEntity.getInstructor());
                 dao.update(lesson);
             }
-            ctx.json(new InstructorDTO(createdEntity));
+            ctx.json(new InstructorDTO(createdEntity.getInstructor()));
         } catch (Exception ex)
         {
             logger.error("Error creating entity", ex);
@@ -207,18 +214,18 @@ public class SkiingCourseController implements IController
             long id = ctx.pathParamAsClass("id", Long.class)
                 .check(i -> i > 0, "id must be at least 0")
                 .getOrThrow((valiappor) -> new BadRequestResponse("Invalid id"));
-            InstructorDTO incomingEntity = ctx.bodyAsClass(InstructorDTO.class);
-            Instructor entityToUpdate = dao.getById(Instructor.class, id);
-            if (incomingEntity.getFirstName() != null)
+            SkiLessonDTO incomingEntity = ctx.bodyAsClass(SkiLessonDTO.class);
+            SkiLesson entityToUpdate = dao.getById(SkiLesson.class, id);
+            if (incomingEntity.getEndTime() != null)
             {
-                entityToUpdate.setFirstName(incomingEntity.getFirstName());
+                entityToUpdate.setEndTime(incomingEntity.getEndTime());
             }
-            if (incomingEntity.getLastName() != null)
+            if (incomingEntity.getInstructor() != null)
             {
-                entityToUpdate.setLastName(incomingEntity.getLastName());
+                entityToUpdate.setInstructor(incomingEntity.getInstructor());
             }
-            Instructor updatedEntity = dao.update(entityToUpdate);
-            InstructorDTO returnedEntity = new InstructorDTO(updatedEntity);
+            SkiLesson updatedEntity = dao.update(entityToUpdate);
+            SkiLessonDTO returnedEntity = new SkiLessonDTO(updatedEntity);
             ctx.json(returnedEntity);
         } catch (Exception ex)
         {
@@ -252,8 +259,8 @@ public class SkiingCourseController implements IController
             long id = context.pathParamAsClass("id", Long.class)
                 .check(i -> i > 0, "id must be at least 0")
                 .getOrThrow((valiappor) -> new BadRequestResponse("Invalid id"));
-            Instructor instructor = dao.getById(Instructor.class, id);
-            context.json(instructor.getSkiLessoons());
+            SkiLesson lesson = dao.getById(SkiLesson.class, id);
+            context.json(lesson.getInstructor().getSkiLessoons());
         } catch (Exception ex)
         {
             logger.error("Error getting lessons", ex);
