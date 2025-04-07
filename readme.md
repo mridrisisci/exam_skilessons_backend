@@ -67,16 +67,16 @@ Note that you must have your <b>secret token key</b> defined in your config.prop
 ### REST Error Handling
 ___
 The controller handles general error handling and returns a JSON with error messages. The controller also uses a 'try/catch' block to handle any errors that occur during request processing. If an error occurs, a JSON with error information and an appropriate HTTP status code is returned.
-
-Note that these error messages are also logged in the "debug.log" file in the "logs" folder.
-The error messages are structured as follows:
-
 ```json
 {
     "status": "error",
-    "message": "Error message",
+    "message": "Error message"
 }
 ```
+Note that these error messages are also logged in the "debug.log" file in the "logs" folder.
+The error messages  in JSON-format are structured as follows:
+
+
 <details>
 <summary>Error handling example</summary>
 ''' java
@@ -105,6 +105,56 @@ ___
 * Example HTTP requests are available in src/main/resources/demo.http
 
 ### External API
+___________
+Link for the external API: https://apiprovider.cphbusinessapps.dk/skilesson/
+
+Following routes have been implemented:
+* GET localhost:7070/api/courses/search/{level}
+* GET localhost:7070/api/courses/search/duration/{level}
+* GET localhost:7070/api/courses/search/instructor/{instructorId}
+
+#### Eksempel på json respons første ovennævnte rute: 
+
+```json
+[
+  {
+    "title": "Basic Skiing Stance",
+    "description": "Learn the proper stance for skiing to maintain balance and control.",
+    "level": "beginner",
+    "durationMinutes": 30,
+    "createdAt": 1730310298.547000000,
+    "updatedAt": 1730310298.547000000,
+    "instructorId": null
+  },
+  {
+    "title": "Snow Plow Stops",
+    "description": "Learn the snow plow stop, an essential technique for beginners to slow down or stop.",
+    "level": "beginner",
+    "durationMinutes": 20,
+    "createdAt": 1730310298.547000000,
+    "updatedAt": 1730310298.547000000,
+    "instructorId": null
+  },
+  {
+    "title": "Emergency Falling Techniques",
+    "description": "Learn how to fall safely to avoid injury and minimize risk during a fall.",
+    "level": "beginner",
+    "durationMinutes": 30,
+    "createdAt": 1730310298.547000000,
+    "updatedAt": 1730310298.547000000,
+    "instructorId": null
+  },
+  {
+    "title": "Freestyle Skiing Basics",
+    "description": "Introduction to freestyle skiing, including jumps and tricks on terrain parks.",
+    "level": "beginner",
+    "durationMinutes": 40,
+    "createdAt": 1730310298.547000000,
+    "updatedAt": 1730310298.547000000,
+    "instructorId": null
+  }
+]
+```
 
 ### Security
 ___
