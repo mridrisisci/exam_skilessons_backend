@@ -2,6 +2,7 @@ package app.dto;
 
 import app.entities.Instructor;
 import app.entities.SkiLesson;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@JsonIgnoreProperties
 public class InstructorDTO
 {
 

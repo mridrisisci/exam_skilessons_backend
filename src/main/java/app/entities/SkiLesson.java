@@ -2,6 +2,7 @@ package app.entities;
 
 import app.dto.SkiLessonDTO;
 import app.enums.LessonLevel;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -39,7 +40,7 @@ public class SkiLesson
 
     @ManyToOne
     @ToString.Exclude
-    @JsonManagedReference
+    @JsonBackReference
     @JoinColumn(name = "instructor_id")
     private Instructor instructor = new Instructor();
 

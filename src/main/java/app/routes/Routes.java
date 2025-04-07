@@ -1,6 +1,7 @@
 package app.routes;
 
 import app.config.HibernateConfig;
+import app.controllers.InstructorController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import app.controllers.SecurityController;
 import app.enums.Roles;
@@ -11,37 +12,38 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Routes
 {
-    private final HotelController hotelController;
+    private final InstructorController instructorController;
     private final SecurityController securityController;
     private final ObjectMapper jsonMapper = new ObjectMapper();
     private final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
 
-    public Routes(HotelController hotelController, SecurityController securityController)
+    public Routes(InstructorController instructorController, SecurityController securityController)
     {
-        this.hotelController = hotelController;
+        this.instructorController = instructorController;
         this.securityController = securityController;
     }
 
     public  EndpointGroup getRoutes()
     {
         return () -> {
-            path("hotel", hotelRoutes());
+            path("instructor", instructorRoutes());
             path("auth", authRoutes());
             path("protected", protectedRoutes());
         };
     }
 
-    private  EndpointGroup hotelRoutes()
+    public EndpointGroup instructorRoutes()
     {
         return () -> {
-            get(hotelController::getAll);
-            post(hotelController::create);
-            get("/{id}", hotelController::getById);
-            put("/{id}", hotelController::update);
-            delete("/{id}", hotelController::delete);
-            get("/{id}/rooms", hotelController::getRooms);
+            get("/all", instructorController::getAll);
+            post("/", instructorController::create);
+            get("/{id}", instructorController::getById);
+            put("/{id}", instructorController::update);
+            delete("/{id}", instructorController::delete);
+            post("/populate", (ctx) -> instructorController.populateDB(emf));
         };
     }
+
 
     private  EndpointGroup authRoutes()
     {

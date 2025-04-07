@@ -1,37 +1,66 @@
-GET localhost:7070/api/routes
 
-###
-GET localhost:7070/api/hotel
+// -------------- POPULATE DB ---------------
 
-###
-GET localhost:7070/api/hotel/3
+// populates db with dummy data
+POST localhost:7070/api/instructor/populate
 
+// -------------- INSTRUCTOR ROUTES - CRUDS ---------------
+
+// get all instructors
 ###
-POST localhost:7070/api/hotel
+GET localhost:7070/api/instructor/all
+
+// get instructor by id
+###
+GET localhost:7070/api/instructor/2
+
+// create instructor
+###
+POST localhost:7070/api/instructor
 Content-Type: "application/json"
 
 {
-    "name": "Park Hotel",
-    "address": "Brorsonsvej 2",
-    "rooms":[
-        {
-            "roomNumber": 101,
-            "price": 1000
-        }
-    ]
+  "firstName": "Wonder",
+  "lastName": "Woman",
+  "email": "wonderwoman@marvel.com",
+  "phone": "12121212",
+  "yearsOfExperience": 52
 }
 
+
+// update doctor
 ###
-PUT localhost:7070/api/hotel/1
-Content-Type: "application/json"
+PUT localhost:7070/api/instructor/2
 
 {
-    "name": "Lucky Star Hotel",
-    "address": "Brorsonsvej 1"
+  "firstName": "hulk",
+  "lastName": "testing new name",
+  "email": "hulk@marvel.com",
+  "phone": "11111111",
+  "yearsOfExperience": 20
 }
 
+// delete doctor
 ###
-DELETE localhost:7070/api/hotel/1
+DELETE localhost:7070/api/instructor/1
 
+// -------------- EXTERNAL API ROUTES -  ---------------
+
+// get all shops
 ###
-GET localhost:7070/api/hotel/1/rooms
+GET localhost:7070/api/shops/
+
+// get shop by category
+###
+GET localhost:7070/api/shops/search/video
+
+
+// -------------- STREAMS ROUTES -  ---------------
+
+// search doctor by specialty
+###
+GET localhost:7070/api/doctors/search/SURGERY
+
+// get total number of doctors by specialty
+###
+GET localhost:7070/api/doctors/searchtotal/SURGERY

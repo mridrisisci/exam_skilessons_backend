@@ -2,6 +2,7 @@ package app.entities;
 
 import app.dto.InstructorDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "ski_lessons")
+@Table(name = "instructors")
 public class Instructor
 {
 

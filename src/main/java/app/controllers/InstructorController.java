@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.config.HibernateConfig;
 import app.dao.CrudDAO;
 import app.dao.InstructorDAO;
 import app.dto.ErrorMessage;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 public class InstructorController implements IController {
     private final CrudDAO dao;
     private static final Logger logger = LoggerFactory.getLogger(InstructorController.class);
+    private final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
 
     public InstructorController(EntityManagerFactory emf) {
         dao = new InstructorDAO(emf);

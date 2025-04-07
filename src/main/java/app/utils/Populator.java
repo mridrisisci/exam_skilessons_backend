@@ -21,7 +21,6 @@ public class Populator
 {
 
     // initialize instance variables here
-    private final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryForTest();
     private Logger logger = LoggerFactory.getLogger(Populator.class);
 
     Instructor instructor1, instructor2, instructor3;
@@ -31,21 +30,21 @@ public class Populator
     {
         // initialize dummy objects here
 
-        instructor1 = new Instructor(null,
+        instructor1 = new Instructor("Mister",
             "johnson",
             "johnson@example.com",
             "39393939",
             5);
 
         instructor2 = new Instructor(
-            null,
+            "Cool",
             "smith",
             "smith@example.com",
             "29292929",
             10);
 
         instructor3 = new Instructor(
-            null,
+            "Lovely",
             "jane",
             "jane@example.com",
             "19191919",
@@ -138,7 +137,7 @@ public class Populator
             instructor2.addSkiLesson(lesson3);
             instructor2.addSkiLesson(lesson4);
 
-            instructor2.addSkiLesson(lesson5);
+            instructor3.addSkiLesson(lesson5);
             instructor3.addSkiLesson(lesson6);
 
             // Persist Appointment objects
