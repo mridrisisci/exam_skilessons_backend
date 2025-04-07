@@ -107,13 +107,6 @@ public class Populator
 
     }
 
-
-    public Map<String, Object> getEntites()
-    {
-        Map<String, Object> entities = new HashMap<>();
-        return entities;
-    }
-
     public void populate(EntityManagerFactory emf)
     {
         try (EntityManager em = emf.createEntityManager())
@@ -121,8 +114,8 @@ public class Populator
             em.getTransaction().begin();
 
             // Clear existing data (if any)
-            em.createQuery("DELETE FROM Instructor ").executeUpdate();
             em.createQuery("DELETE FROM SkiLesson ").executeUpdate();
+            em.createQuery("DELETE FROM Instructor ").executeUpdate();
 
             // Persist Doctor objects
             em.persist(instructor1);
@@ -132,10 +125,8 @@ public class Populator
             // Add appointments to doctors (bi-directional mapping)
             instructor1.addSkiLesson(lesson1);
             instructor1.addSkiLesson(lesson2);
-
             instructor2.addSkiLesson(lesson3);
             instructor2.addSkiLesson(lesson4);
-
             instructor3.addSkiLesson(lesson5);
             instructor3.addSkiLesson(lesson6);
 
