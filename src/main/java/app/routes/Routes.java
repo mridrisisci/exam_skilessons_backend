@@ -2,6 +2,7 @@ package app.routes;
 
 import app.config.HibernateConfig;
 import app.controllers.InstructorController;
+import app.controllers.SkiingCourseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import app.controllers.SecurityController;
 import app.enums.Roles;
@@ -16,11 +17,13 @@ public class Routes
     private final SecurityController securityController;
     private final ObjectMapper jsonMapper = new ObjectMapper();
     private final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
+    private final SkiingCourseController skiingCourseController;
 
-    public Routes(InstructorController instructorController, SecurityController securityController)
+    public Routes(InstructorController instructorController, SecurityController securityController, SkiingCourseController skiingCourseController)
     {
         this.instructorController = instructorController;
         this.securityController = securityController;
+        this.skiingCourseController = skiingCourseController;
     }
 
     public  EndpointGroup getRoutes()
@@ -29,6 +32,7 @@ public class Routes
             path("instructor", instructorRoutes());
             path("auth", authRoutes());
             path("protected", protectedRoutes());
+            path("courses", skiingCoursesRoutes());
         };
     }
 
@@ -44,6 +48,12 @@ public class Routes
         };
     }
 
+    private EndpointGroup skiingCoursesRoutes()
+    {
+        return () -> {
+            get("/search/{level}", (ctx) -> skiingCourseController.searchSkiingCourseByLevel(ctx));
+        };
+    }
 
     private  EndpointGroup authRoutes()
     {

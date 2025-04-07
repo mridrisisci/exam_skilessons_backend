@@ -46,9 +46,9 @@ DELETE localhost:7070/api/instructor/1
 
 // -------------- EXTERNAL API ROUTES -  ---------------
 
-// get all shops
+// search skiing courses by level
 ###
-GET localhost:7070/api/shops/
+GET localhost:7070/api/courses/search/BEGINNER
 
 // get shop by category
 ###

@@ -24,6 +24,7 @@ class InstructorResourceTest
 
     private static final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryForTest();
     final ObjectMapper objectMapper = new ObjectMapper();
+    static SkiingCourseController skiingCourseController;
     final Logger logger = LoggerFactory.getLogger(InstructorController.class.getName());
     Instructor instructor1, instructor2, instructor3;
     SkiLesson lesson1, lesson2, lesson3, lesson4, lesson5, lesson6;
@@ -35,7 +36,7 @@ class InstructorResourceTest
     {
         InstructorController instructorController = new InstructorController(emf);
         SecurityController securityController = new SecurityController(emf);
-        Routes routes = new Routes(instructorController, securityController);
+        Routes routes = new Routes(instructorController, securityController, skiingCourseController);
         ApplicationConfig
                 .getInstance()
                 .initiateServer()
