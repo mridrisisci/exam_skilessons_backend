@@ -52,8 +52,9 @@ src/
 
 ### Theoretical Questions
 ___
-* Question 1: 
-* Question 2: 
+* (3.3.5): Why is PUT used for assigning an item to a student instead of POST?
+Man bruger 'PUT' når man ønsker at opdatere en specifik resource - især når man kender det specifikke endpoint.
+* Dertil er 'PUT' også idempotent. Så selvom at man kalder 'PUT' flere gande vi det kun opdatere resourcen man kalder den på den første gang.
 
 ### Endpoints 
 ___
