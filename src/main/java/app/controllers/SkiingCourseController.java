@@ -50,6 +50,39 @@ public class SkiingCourseController implements IController
         this.dataAPIReader = dataAPIReader;
     }
 
+    public void assignInstructorToSkiingCourse(Context ctx)
+    {
+        try
+        {
+            // get ids
+            String courseIdParam = ctx.pathParam("courseId");
+            String instructorIdParam = ctx.pathParam("instructorId");
+            int courseId = Integer.parseInt(courseIdParam);
+            int instructorId = Integer.parseInt(instructorIdParam);
+
+            // Fetch the course and instructor from the database
+            SkiLesson course = dao.getById(SkiLesson.class, courseId);
+            Instructor instructor = dao.getById(Instructor.class, instructorId);
+
+            // Check if the course and instructor exist
+            if (course == null || instructor == null)
+            {
+                ctx.status(404).json(new ErrorMessage("Course or instructor not found"));
+                return;
+            }
+
+            // Assign the instructor to the course
+            course.setInstructor(instructor);
+            dao.update(course);
+            ctx.status(200).json(new InstructorDTO(instructor));
+        } catch (Exception e)
+        {
+            logger.error("Error assigning instructor to skiing course", e);
+            ErrorMessage error = new ErrorMessage("Error assigning instructor to skiing course");
+            ctx.status(404).json(error);
+        }
+    }
+
     public void getOverviewOFSkiingCourseByInstructor(Context ctx)
     {
         List<SkiingCourseDTO> skiingCourses;

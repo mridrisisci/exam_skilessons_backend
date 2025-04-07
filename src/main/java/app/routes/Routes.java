@@ -54,6 +54,7 @@ public class Routes
             get("/search/{level}", (ctx) -> skiingCourseController.searchSkiingCourseByLevel(ctx));
             get("/search/duration/{level}", (ctx) -> skiingCourseController.getTotalDurationForASkiingCourse(ctx));
             get("/search/instructor/{instructorId}", (ctx) -> skiingCourseController.getOverviewOFSkiingCourseByInstructor(ctx));
+            put("/{courseId}/instructor/{instructorId}", (ctx) -> skiingCourseController.assignInstructorToSkiingCourse(ctx));
             get("/all", skiingCourseController::getAll);
             post("/", skiingCourseController::create);
             get("/{id}", skiingCourseController::getById);

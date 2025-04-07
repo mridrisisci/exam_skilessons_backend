@@ -8,7 +8,7 @@ POST localhost:7070/api/instructor/populate
 
 // add an exisiting instructor by id to existing course by id
 ###
-PUT localhost:7070/api/courses/1/instructors/2
+PUT localhost:7070/api/courses/1/instructor/2
 
 
 
