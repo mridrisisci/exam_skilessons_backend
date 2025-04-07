@@ -21,7 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SkiingCourseController implements IController
@@ -71,18 +73,31 @@ public class SkiingCourseController implements IController
         }
     }
 
-    public void getTotalDurationOfSkiingCourses(Context ctx)
+    public void getTotalDurationForASkiingCourse(Context ctx)
     {
         List<SkiingCourseDTO> skiingCourses;
         try
         {
             String json = dataAPIReader.getDataFromClient(BASE_URL);
             JsonNode node = objectMapper.readValue(json, JsonNode.class);
+            String param = ctx.pathParam("level");
             skiingCourses = objectMapper.convertValue(node, new TypeReference<List<SkiingCourseDTO>>() {});
+
+            // filter courses based on level
+            List<SkiingCourseDTO> filteredCourse = skiingCourses.stream()
+                .filter(course -> course.getLevel().equalsIgnoreCase(param))
+                .collect(Collectors.toList());
+
+            // calculate total duration
             int totalDuration = skiingCourses.stream()
                 .mapToInt(SkiingCourseDTO::getDurationMinutes)
                 .sum();
-            ctx.json(totalDuration);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("level", param);
+            response.put("totalDuration", totalDuration);
+
+            ctx.json(response);
 
         } catch (Exception e)
         {

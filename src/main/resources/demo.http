@@ -50,9 +50,9 @@ DELETE localhost:7070/api/instructor/1
 ###
 GET localhost:7070/api/courses/search/Beginner
 
-// get total duration of skiing lessons
+// get total duration of skiing lessons - search by level
 ###
-GET localhost:7070/api/courses/search/duration
+GET localhost:7070/api/courses/search/duration/beginner
 
 
 // -------------- STREAMS ROUTES -  ---------------
